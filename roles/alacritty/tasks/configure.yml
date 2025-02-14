@@ -1,0 +1,28 @@
+---
+- name: Ensure Alacritty config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_home }}/.config/alacritty"
+    state: directory
+    mode: '0755'
+  become: false
+
+- name: Deploy light theme
+  ansible.builtin.copy:
+    src: light.toml
+    dest: "{{ ansible_user_home }}/.config/alacritty/light.toml"
+    mode: '0644'
+  become: false
+
+- name: Deploy dark theme
+  ansible.builtin.copy:
+    src: dark.toml
+    dest: "{{ ansible_user_home }}/.config/alacritty/dark.toml"
+    mode: '0644'
+  become: false
+
+- name: Deploy main Alacritty configuration
+  ansible.builtin.template:
+    src: alacritty.toml.j2
+    dest: "{{ ansible_user_home }}/.config/alacritty/alacritty.toml"
+    mode: '0644'
+  become: false

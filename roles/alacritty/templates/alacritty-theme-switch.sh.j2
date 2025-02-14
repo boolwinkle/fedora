@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Get GNOME theme preference
+THEME=$(gsettings get org.gnome.desktop.interface color-scheme)
+
+# Define paths
+ALACRITTY_CONFIG="$HOME/.config/alacritty/alacritty.toml"
+LIGHT_THEME="$HOME/.config/alacritty/light.toml"
+DARK_THEME="$HOME/.config/alacritty/dark.toml"
+
+# Apply the correct theme
+if [[ "$THEME" == *'dark'* ]]; then
+    echo "Switching to Mocha theme"
+    echo 'general.import = ["'"$DARK_THEME"'"]' > "$ALACRITTY_CONFIG"
+else
+    echo "Switching to Latte theme"
+    echo 'general.import = ["'"$LIGHT_THEME"'"]' > "$ALACRITTY_CONFIG"
+fi

@@ -1,0 +1,15 @@
+---
+- name: Install VSCodium extensions
+  become: false
+  command: codium --install-extension "{{ item }}"
+  loop:
+    - ms-python.python
+    - ms-python.debugpy
+    - ms-toolsai.jupyter
+    - redhat.vscode-yaml
+    - ms-azuretools.vscode-docker
+    - esbenp.prettier-vscode
+    - dracula-theme.theme-dracula
+    - Catppuccin.catppuccin-vsc-icons
+  register: extension_installation
+  changed_when: "'already installed' not in extension_installation.stdout"

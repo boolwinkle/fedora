@@ -1,0 +1,40 @@
+---
+- name: Define the list of nvidia driver deps
+  set_fact:
+    packages:
+     - kernel-devel 
+     - kernel-headers 
+     - gcc 
+     - make 
+     - dkms 
+     - acpid 
+     - libglvnd-glx 
+     - libglvnd-opengl 
+     - libglvnd-devel 
+     - pkgconfig
+
+- name: Install nvidia driver deps
+  dnf:
+    name: "{{ packages }}"
+    state: present
+
+- name: Define the list of nvidia driver packages
+  set_fact:
+    packages:
+     - akmod-nvidia 
+     - xorg-x11-drv-nvidia-cuda
+     - xorg-x11-drv-nvidia-power
+
+- name: Install nvidia drivers
+  dnf:
+    name: "{{ packages }}"
+    state: present
+
+- name: Enable Nvidia suspend, resume, and hibernate services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: yes
+  loop:
+    - nvidia-suspend.service
+    - nvidia-resume.service
+    - nvidia-hibernate.service

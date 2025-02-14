@@ -1,0 +1,10 @@
+---
+- name: Install required packages for GNOME Extensions
+  ansible.builtin.package:
+    name:
+      - gnome-shell-extension-blur-my-shell.noarch
+      - gnome-shell-extension-dash-to-dock.noarch
+      - gnome-shell-extension-caffeine.noarch
+      - gnome-shell-extension-user-theme.noarch
+    state: present
+  become: true

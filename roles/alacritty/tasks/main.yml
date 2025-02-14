@@ -1,0 +1,9 @@
+---
+- name: Install Alacritty
+  import_tasks: install.yml
+
+- name: Configure Alacritty themes
+  import_tasks: configure.yml
+
+- name: Setup theme switching service
+  import_tasks: service.yml

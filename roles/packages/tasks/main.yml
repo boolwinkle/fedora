@@ -1,0 +1,40 @@
+---
+- name: Define the list of dev packages
+  set_fact:
+    packages:
+      - codium
+      - gcc
+      - git 
+      - make
+
+- name: Install dev packages
+  dnf:
+    name: "{{ packages }}"
+    state: present
+
+- name: Define the list of misc packages
+  set_fact:
+    packages:
+      - alacritty
+      - discord
+      - fastfetch
+      - gnome-tweaks
+      - gnome-extensions
+      - htop
+      - libreoffice
+      - papirus-icon-theme
+      - steam
+      - telegram-desktop
+      - vim-enhanced
+
+- name: Install misc packages
+  dnf:
+    name: "{{ packages }}"
+    state: present
+
+- name: Install Flatpak applications
+  community.general.flatpak:
+    name:
+      - org.signal.Signal
+      - com.stremio.Stremio
+    state: present

@@ -1,0 +1,16 @@
+[Unit]
+Description=Auto switch Alacritty theme based on GNOME theme
+After=graphical-session.target
+Requires=graphical-session.target
+
+[Service]
+ExecStart=%h/.local/bin/alacritty-theme-switch.sh
+Restart=always
+Environment="DISPLAY=:0"
+Environment="XDG_RUNTIME_DIR=/run/user/%U"
+ExecStartPre=/bin/sleep 2
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

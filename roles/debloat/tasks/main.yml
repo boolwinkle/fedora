@@ -1,0 +1,23 @@
+---
+- name: Define the list of packages to remove
+  set_fact:
+    packages:
+      - fedora-bookmarks
+      - fedora-chromium-config
+      - gnome-boxes
+      - gnome-calculator
+      - gnome-calendar
+      - gnome-clocks
+      - gnome-contacts
+      - gnome-maps
+      - gnome-remote-desktop
+      - gnome-tour 
+      - gnome-weather
+      - rhythmbox
+      - totem
+      - yelp
+
+- name: Remove bloat
+  dnf:
+    name: "{{ packages }}"
+    state: absent

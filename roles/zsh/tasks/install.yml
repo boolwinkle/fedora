@@ -1,0 +1,18 @@
+---
+- name: Install Zsh
+  ansible.builtin.package:
+    name: zsh
+    state: present
+
+- name: Ensure Oh My Zsh is installed
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: "{{ ansible_user_home }}/.oh-my-zsh"
+  become: false
+
+- name: Ensure Oh My Zsh custom plugins directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_home }}/.oh-my-zsh/custom/plugins"
+    state: directory
+    mode: '0755'
+  become: false

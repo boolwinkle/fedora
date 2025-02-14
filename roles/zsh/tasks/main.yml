@@ -1,0 +1,6 @@
+---
+- name: Install Zsh
+  import_tasks: install.yml
+
+- name: Configure Zsh and plugins
+  import_tasks: configure.yml

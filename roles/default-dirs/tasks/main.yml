@@ -1,0 +1,14 @@
+---
+- name: Create default directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - "{{ ansible_user_home }}/Documents/infigo"
+    - "{{ ansible_user_home }}/Documents/vm"
+    - "{{ ansible_user_home }}/Downloads/misc"
+    - "{{ ansible_user_home }}/Downloads/os"
+    - "{{ ansible_user_home }}/prog"
+    - "{{ ansible_user_home }}/rice/"
+  become: false
