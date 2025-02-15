@@ -1,9 +1,11 @@
----
 - name: Define the list of packages to remove
   set_fact:
     packages:
+      - abrt-gui
+      - abrt-desktop
       - fedora-bookmarks
       - fedora-chromium-config
+      - gnome-abrt
       - gnome-boxes
       - gnome-calculator
       - gnome-calendar
@@ -11,13 +13,14 @@
       - gnome-contacts
       - gnome-maps
       - gnome-remote-desktop
-      - gnome-tour 
+      - gnome-tour
       - gnome-weather
       - rhythmbox
       - totem
       - yelp
 
-- name: Remove bloat
+- name: Remove specified packages
   dnf:
     name: "{{ packages }}"
     state: absent
+  failed_when: false
