@@ -16,6 +16,8 @@
   set_fact:
     packages:
       - alacritty
+      - bat
+      - dconf
       - discord
       - fastfetch
       - gnome-tweaks
@@ -24,8 +26,11 @@
       - libreoffice
       - papirus-icon-theme
       - steam
+      - transmission
       - telegram-desktop
       - vim-enhanced
+      - vlc
+      - xournalpp
 
 - name: Install misc packages
   dnf:
@@ -35,6 +40,8 @@
 - name: Install Flatpak applications
   community.general.flatpak:
     name:
+      - net.cozic.joplin_desktop
       - org.signal.Signal
+      - com.spotify.Client
       - com.stremio.Stremio
     state: present
