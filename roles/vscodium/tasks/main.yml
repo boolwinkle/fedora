@@ -11,5 +11,6 @@
     - esbenp.prettier-vscode
     - dracula-theme.theme-dracula
     - Catppuccin.catppuccin-vsc-icons
+    - BeardedBear.beardedicons
   register: extension_installation
   changed_when: "'already installed' not in extension_installation.stdout"
