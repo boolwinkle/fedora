@@ -16,6 +16,7 @@
   set_fact:
     packages:
       - alacritty
+      - android-tools
       - bat
       - dconf
       - discord
@@ -24,6 +25,7 @@
       - gnome-extensions
       - htop
       - libreoffice
+      - ntfs-3g
       - papirus-icon-theme
       - steam
       - transmission

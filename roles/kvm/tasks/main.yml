@@ -1,0 +1,53 @@
+---
+- name: Install KVM, Libvirt, QEMU, and Virt-Manager
+  dnf:
+    name:
+      - "@virtualization"
+      - virt-manager
+      - libvirt-daemon-kvm
+      - qemu-kvm
+      - libvirt-client
+      - virt-viewer
+      - bridge-utils
+      - ebtables
+      - dnsmasq
+      - swtpm
+      - swtpm-selinux
+      - usbredir
+    state: present
+
+- name: Enable and start libvirtd service
+  systemd:
+    name: libvirtd
+    enabled: yes
+    state: started
+
+- name: Ensure user is added to the libvirt group
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: libvirt
+    append: yes
+
+- name: Enable Nested Virtualization
+  lineinfile:
+    path: /etc/modprobe.d/kvm.conf
+    line: "{{ item }}"
+    create: yes
+  loop:
+    - 'options kvm_intel nested=1'
+    - 'options kvm_amd nested=1'
+  notify: Reload KVM module
+
+- name: Ensure libvirt supports TPM
+  lineinfile:
+    path: /etc/libvirt/qemu.conf
+    line: 'nvram = ["/usr/share/edk2/ovmf/OVMF_CODE.secboot.fd", "/usr/share/edk2/ovmf/OVMF_VARS.secboot.fd"]'
+    create: yes
+  notify: Restart libvirtd
+
+- name: Enable USB Redirection in SPICE
+  lineinfile:
+    path: /etc/libvirt/qemu.conf
+    line: 'usbredirection=1'
+    create: yes
+  notify: Restart libvirtd

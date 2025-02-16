@@ -1,0 +1,12 @@
+---
+- name: Reload KVM settings dynamically
+  command: sysctl -w kernel.nesting=1
+
+- name: Notify user if reboot is required
+  debug:
+    msg: "A reboot may be required for nested virtualization changes to take effect."
+
+- name: Restart libvirtd
+  systemd:
+    name: libvirtd
+    state: restarted
