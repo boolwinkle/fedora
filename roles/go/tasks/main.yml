@@ -1,0 +1,44 @@
+---
+- name: Install Go
+  become: yes
+  dnf:
+    name: golang
+    state: present
+
+- name: Create custom GOPATH directory
+  file:
+    path: /home/boolwinkle/.go
+    state: directory
+    owner: boolwinkle
+    group: boolwinkle
+    mode: '0755'
+
+- name: Set GOPATH and add to PATH in zshrc
+  lineinfile:
+    path: /home/boolwinkle/.zshrc
+    state: present
+    line: |
+      export GOPATH=/home/boolwinkle/.go
+      export PATH=$PATH:$GOPATH/bin
+    create: yes
+
+- name: Source the zshrc file
+  shell: source /home/boolwinkle/.zshrc
+
+- name: Verify GOPATH is set
+  command: echo $GOPATH
+  register: gopath_output
+  changed_when: false
+
+- name: Display GOPATH
+  debug:
+    msg: "GOPATH is set to {{ gopath_output.stdout }}"
+
+- name: Verify PATH includes GOPATH/bin
+  command: echo $PATH
+  register: path_output
+  changed_when: false
+
+- name: Display PATH
+  debug:
+    msg: "PATH includes {{ path_output.stdout }}"
