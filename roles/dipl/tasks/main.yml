@@ -1,0 +1,11 @@
+---
+- name: Install osv-scanner
+  command: go install github.com/google/osv-scanner/cmd/osv-scanner@v1
+  become: false
+
+- name: Install dipl packages
+  dnf:
+    name:
+      - trivy
+      - koji
+    state: present

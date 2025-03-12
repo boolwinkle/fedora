@@ -26,7 +26,7 @@
 - name: Add VSCodium repository
   copy:
     dest: /etc/yum.repos.d/vscodium.repo
-    content: |
+    content: |  
       [gitlab.com_paulcarroty_vscodium_repo]
       name=gitlab.com_paulcarroty_vscodium_repo
       baseurl=https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/rpms/
@@ -35,3 +35,15 @@
       repo_gpgcheck=1
       gpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
       metadata_expire=1h
+
+- name: Add Brave Browser repository
+  copy:
+    dest: /etc/yum.repos.d/brave-browser.repo
+    content: |
+      [brave-browser]
+      name=Brave Browser
+      enabled=1
+      gpgcheck=1
+      gpgkey=https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+      baseurl=https://brave-browser-rpm-release.s3.brave.com/$basearch
+

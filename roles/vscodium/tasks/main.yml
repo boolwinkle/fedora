@@ -12,5 +12,6 @@
     - dracula-theme.theme-dracula
     - Catppuccin.catppuccin-vsc-icons
     - BeardedBear.beardedicons
+    - AquaSecurityOfficial.trivy-vulnerability-scanner
   register: extension_installation
   changed_when: "'already installed' not in extension_installation.stdout"
