@@ -1,7 +1,7 @@
 ---
-- name: Install VSCodium extensions
+- name: Install VSCode extensions
   become: false
-  command: codium --install-extension "{{ item }}"
+  command: code --install-extension "{{ item }}"
   loop:
     - ms-python.python
     - ms-python.debugpy

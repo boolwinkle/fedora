@@ -32,3 +32,21 @@
   loop:
     - docker.io/sagemath/sagemath
   become: false
+
+- name: Get the latest version of Dive
+  uri:
+    url: "https://api.github.com/repos/wagoodman/dive/releases/latest"
+    return_content: yes
+  register: dive_release
+
+- name: Extract the version number
+  set_fact:
+    dive_version: "{{ dive_release.json.tag_name | regex_replace('^v', '') }}"
+
+- name: Install CTF packages
+  dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - ghex
+    - "https://github.com/wagoodman/dive/releases/download/v{{ dive_version }}/dive_{{ dive_version }}_linux_amd64.rpm"

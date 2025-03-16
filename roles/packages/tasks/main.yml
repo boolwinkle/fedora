@@ -2,7 +2,7 @@
 - name: Define the list of dev packages
   set_fact:
     packages:
-      - codium
+      - code
       - gcc
       - git 
       - make
