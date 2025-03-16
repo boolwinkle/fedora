@@ -1,0 +1,34 @@
+---
+- name: Ensure pip is installed
+  dnf:
+    name: python3-pip
+    state: present
+
+- name: Create directory for virtual environments
+  file:
+    path: "{{ ansible_user_home }}/prog/python_venvs/"
+    state: directory
+    mode: '0755'
+  become: false
+
+- name: Create Python virtual environments
+  command: python -m venv {{ ansible_user_home }}/prog/python_venvs/{{ item }}
+  loop:
+    - crypto
+  become: false
+
+- name: Install packages in virtual environments
+  pip:
+    name:
+      - pycryptodome
+    virtualenv: "{{ ansible_user_home }}/prog/python_venvs/{{ item }}"
+  loop:
+    - crypto
+  become: false
+
+- name: Pull container images
+  containers.podman.podman_image:
+    name: "{{ item }}"
+  loop:
+    - docker.io/sagemath/sagemath
+  become: false
